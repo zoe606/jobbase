@@ -35,7 +35,9 @@ class CategoryController extends \yii\web\Controller
 
     public function actionIndex()
     {
+        // create query
         $query = Category::find();
+        
 
         $pagination = new Pagination([
             'defaultPageSize' => 20,
@@ -46,7 +48,9 @@ class CategoryController extends \yii\web\Controller
                     ->offset($pagination->offset)
                     ->limit($pagination->limit)
                     ->all();
-
+                    
+                    // print_r($categories);
+                    // die();
         return $this->render('index', [
             'categories' => $categories,
             'pagination' => $pagination

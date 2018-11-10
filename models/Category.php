@@ -52,6 +52,11 @@ class Category extends \yii\db\ActiveRecord
      */
     public function getTblJobs()
     {
-        return $this->hasMany(TblJob::className(), ['category_id' => 'id']);
+        return $this->hasMany(Job::className(), ['category_id' => 'id']);
+    }
+
+    public function getJobs()
+    {
+        return $this->hasMany(Job::className(), ['category_id' => 'id']);
     }
 }
