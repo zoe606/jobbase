@@ -42,13 +42,13 @@ class Job extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['category_id', 'user_id', 'title', 'description', 'type', 'requirments', 'salary_range', 'city', 'state', 'zipcode', 'contact_email', 'contact_phone'], 'required'],
-            [['category_id', 'user_id', 'is_publish'], 'integer'],
+            [['category_id', 'title', 'description', 'type', 'requirments', 'salary_range', 'city', 'state', 'zipcode', 'contact_email', 'contact_phone'], 'required'],
+            [['category_id', 'is_publish'], 'integer'],
             [['description'], 'string'],
             [['create_date'], 'safe'],
             [['title', 'type', 'requirments', 'salary_range', 'city', 'state', 'zipcode', 'contact_email', 'contact_phone'], 'string', 'max' => 255],
-            [['category_id'], 'exist', 'skipOnError' => true, 'targetClass' => TblCategory::className(), 'targetAttribute' => ['category_id' => 'id']],
-            [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => TblUser::className(), 'targetAttribute' => ['user_id' => 'id']],
+            [['category_id'], 'exist', 'skipOnError' => true, 'targetClass' => Category::className(), 'targetAttribute' => ['category_id' => 'id']],
+           
         ];
     }
 
@@ -95,5 +95,10 @@ class Job extends \yii\db\ActiveRecord
     public function getUser()
     {
         return $this->hasOne(User::className(), ['id' => 'user_id']);
+    }
+
+    public function beforeSave($insert){
+        $this->user_id = 1;
+        return parent::beforeSave($insert);
     }
 }

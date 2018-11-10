@@ -10,12 +10,31 @@ use yii\filters\VerbFilter;
 use yii\data\Pagination;
 use app\models\Category;
 use app\models\Job;
+use app\models\User;
 
 class JobController extends \yii\web\Controller
 {
     public function actionCreate()
     {
-        return $this->render('create');
+        $job = new Job();
+
+        if ($job->load(Yii::$app->request->post())) {
+            if ($job->validate()) {
+
+                // save
+                $job->save();
+                
+                // show msg
+                Yii::$app->getSession()->setFlash('success' , 'Job Added');
+
+                // redirect
+                return $this->redirect('index.php?r=job');
+            }
+        }
+
+        return $this->render('create', [
+            'job' => $job,
+        ]);
     }
 
     public function actionDelete()
