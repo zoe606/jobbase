@@ -10,6 +10,7 @@ use yii\helper\ArrayHelper;
 /* @var $form ActiveForm */
 ?>
 <div class="job-create">
+<h2 class="page-header">Create Job</h2>
 
     <?php $form = ActiveForm::begin(); ?>
         <?= $form->errorSummary($job); ?>
