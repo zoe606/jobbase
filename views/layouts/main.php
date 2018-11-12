@@ -50,7 +50,8 @@ AppAsset::register($this);
         'items' => [
             Yii::$app->user->isGuest ? (
                 ['label' => 'Login', 'url' => ['/site/login']]
-            ) : (
+            )
+             : (
                 '<li>'
                 . Html::beginForm(['/site/logout'], 'post')
                 . Html::submitButton(
@@ -59,7 +60,9 @@ AppAsset::register($this);
                 )
                 . Html::endForm()
                 . '</li>'
-            )
+                ),
+            ['label' => 'Register' , 'url' => ['/user/register']]
+
         ],
     ]);
     NavBar::end();
