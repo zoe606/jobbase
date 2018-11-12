@@ -21,7 +21,7 @@ use yii\helper\ArrayHelper;
             ->column(), ['prompt' => 'Select Category']);
         ?>
 
-        <?= $form->field($job, 'user_id') ?>
+
         <?= $form->field($job, 'title') ?>
         <?= $form->field($job, 'description')->textArea(['rows' => '6']) ?>
         <?= $form->field($job, 'type')->dropDownList([

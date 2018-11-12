@@ -14,6 +14,24 @@ use app\models\User;
 
 class JobController extends \yii\web\Controller
 {
+
+    public function behaviors()
+    {
+        return [
+            'access' => [
+                'class' => \yii\filters\AccessControl::className(),
+                'only' => ['create', 'update'],
+                'rules' => [
+                    [
+                        'actions' => ['create', 'update', 'delete'],
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                ],
+            ],
+        ];
+    }
+
     public function actionCreate()
     {
         $job = new Job();
@@ -41,6 +59,12 @@ class JobController extends \yii\web\Controller
     {
         $job = Job::findOne($id);
 
+         // check for owner
+         if (Yii::$app->user->identity->id != $job->user_id) {
+            // redirect
+            return $this->redirect('index.php?r=job');
+       }
+
         $job->delete();
 
         // show msg
@@ -54,6 +78,12 @@ class JobController extends \yii\web\Controller
     public function actionEdit($id)
     {
         $job = Job::findOne($id);
+
+        // check for owner
+        if (Yii::$app->user->identity->id != $job->user_id) {
+             // redirect
+             return $this->redirect('index.php?r=job');
+        }
 
         if ($job->load(Yii::$app->request->post())) {
             if ($job->validate()) {

@@ -1,10 +1,13 @@
 <a href="index.php?r=job">Back to Jobs</a>
 <h2 class="page-header"><?= $job->title; ?> 
   <small> in <?= $job->city;?>, <?= $job->state; ?></small>
+  <?php if(Yii::$app->user->identity->id == $job->user_id) : ?>
   <span class="pull-right">
     <a class="btn btn-default" href="index.php?r=job/edit&id=<?= $job->id; ?>">Edit</a>
     <a class="btn btn-danger" href="index.php?r=job/delete&id=<?= $job->id; ?>">Delete</a> 
   </span>
+
+  <?php endif; ?>
 </h2>
 <?php if(!empty($job->description)) : ?>
 <div class="well">
